@@ -1,7 +1,7 @@
 VERSION = 3
 PATCHLEVEL = 4
 SUBLEVEL = 39
-EXTRAVERSION =-SkyHigh-Universal-SGTS-Exynos-TW-R3_v1.7.0
+EXTRAVERSION =-SkyHigh-Universal-SGTS-Exynos-TW-R3_v1.8.0
 NAME = Saber-toothed Squirrel
 
 # *DOCUMENTATION*
