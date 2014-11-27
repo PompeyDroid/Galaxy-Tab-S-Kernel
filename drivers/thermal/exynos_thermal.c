@@ -128,8 +128,8 @@
 static unsigned int HOT_NORMAL_TEMP = 95;
 static unsigned int HOT_CRITICAL_TEMP = 110;
 static unsigned int HOT_95 = 95;
-static unsigned int HOT_109 = 109;
-static unsigned int HOT_110 = 110;
+static unsigned int HOT_109 = 104;
+static unsigned int HOT_110 = 105;
 static unsigned int MEM_TH_TEMP1 = 75;
 static unsigned int MEM_TH_TEMP2 = 85;
 static unsigned int GPU_TH_TEMP1 = 90;
@@ -1130,7 +1130,12 @@ static void exynos_check_mif_noti_state(int temp)
 		cur_state = MEM_TH_LV3;
 
 	if (cur_state != mif_old_state) {
-		pr_info("tmu temperature state %d to %d \n", mif_old_state, cur_state);
+		pr_info("tmu temperature mif state %d to %d \n", mif_old_state, cur_state);
+#if 1 /* ONLY IF the normal and hot mem temp is same, skip duplicate setting */
+		if ((cur_state == MEM_TH_LV3) ||
+			((cur_state == MEM_TH_LV2) && (mif_old_state == MEM_TH_LV3)) ||
+			((cur_state == MEM_TH_LV1) && (mif_old_state == MEM_TH_LV3)) )
+#endif
 		blocking_notifier_call_chain(&exynos_tmu_notifier, cur_state, &mif_old_state);
 		mif_old_state = cur_state;
 	}
